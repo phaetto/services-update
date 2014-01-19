@@ -1,0 +1,27 @@
+﻿[
+	{
+		"Id":"Update-Server-Debug",
+		"ServiceName":"Services.Packages",
+		"DllPath":"Services.Packages.dll",
+		"ContextType":"Services.Packages.Repository",
+		"Parameters": [ null ],
+		ContextHost: "0.0.0.0",
+		ContextPort: 13001,
+	},
+
+	{
+		"Id":"Update-Server-Secure-Debug",
+		"ServiceName":"Services.Packages",
+		"DllPath":"Services.Packages.dll",
+		"ContextType":"Services.Packages.Repository",
+		"Parameters": [ null ],
+		"Modules": [
+			{
+				ModuleType: "Services.Packages.Admin.Modules.SingleApiKeyRequirement",
+				ModuleParameters: [ "1234", false ],
+			}
+		],
+		ContextHost: "0.0.0.0",
+		ContextPort: 13002,
+	}
+]

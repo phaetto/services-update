@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A5ACE06-365D-4981-B36D-80F2B66C3D99}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Services.Packages</RootNamespace>
+    <AssemblyName>Services.Packages</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
+    <OutputPath>bin\Deploy\</OutputPath>
+    <DefineConstants>TRACE;DEPLOY</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Integration Test|AnyCPU'">
+    <OutputPath>bin\Integration Test\</OutputPath>
+    <DefineConstants>TRACE;INTEGRATIONTEST</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Chains, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Chains.0.9.1.0\lib\Chains.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Services.Management.0.9.1.0\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Platform.Runtime">
+      <HintPath>..\..\..\PlatformCreator\Platform.Runtime\bin\Debug\Platform.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Services.Communication, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Services.Communication.0.9.1.0\lib\Services.Communication.dll</HintPath>
+    </Reference>
+    <Reference Include="Services.Management, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Services.Management.0.9.1.0\lib\Services.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.Common, Version=1.5.1.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Services.Management.0.9.1.0\lib\SuperSocket.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.SocketBase, Version=1.5.1.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Services.Management.0.9.1.0\lib\SuperSocket.SocketBase.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.SocketEngine, Version=1.5.1.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Services.Management.0.9.1.0\lib\SuperSocket.SocketEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Modules\SingleApiKeyRequirement.cs" />
+    <Compile Include="Admin\WatchForAdminUpdate.cs" />
+    <Compile Include="Admin\WatchPackagesForUpdateWithoutVersionUpdate.cs" />
+    <Compile Include="Client\Data\ApplicationUpdateInfo.cs" />
+    <Compile Include="Client\Actions\NeedsUpdate.cs" />
+    <Compile Include="Client\Update.cs" />
+    <Compile Include="Client\Actions\UpdateClientApplication.cs" />
+    <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedo.cs" />
+    <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedoGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedoOptions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.ApiKey.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.cs" />
+    <Compile Include="DAL\Services.Packages.Customer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.CustomerUndoRedo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.CustomerUserEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.LocalPackage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Log.ApplicationException.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionSecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Package.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Purchase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.PurchaseLine.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.PurchaseLineUndoRedo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.PurchaseUndoRedo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.ApiKeyAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.ApiKeyAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.ApiKeySecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.CustomerAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.CustomerAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.CustomerSecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntryAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntryAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntrySecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.IPRegistered.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.IPSessionRegistration.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.ModelSession.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.ModelUser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.ModelUserRights.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PackageAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PackageAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PackageSecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PurchaseAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PurchaseAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PurchaseLineAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PurchaseLineAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PurchaseLineSecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.PurchaseSecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.Securable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserAccessControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserAccessControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserSecureService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Modules\ApiKeyAuthorizationProvider.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Update\CheckPackagesForUpdate.cs" />
+    <Compile Include="Update\CheckPackagesForUpdateData.cs" />
+    <Compile Include="Update\CheckPackagesForUpdateReturnData.cs" />
+    <Compile Include="Update\UploadPackageData.cs" />
+    <Compile Include="Update\DownloadPackageData.cs" />
+    <Compile Include="Update\DownloadPackage.cs" />
+    <Compile Include="Update\DownloadPackageReturnData.cs" />
+    <Compile Include="Update\PackageDescription.cs" />
+    <Compile Include="Update\UploadPackage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Services.Packages.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="schema.dbxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="update.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="update-files.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="nuget-files.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
