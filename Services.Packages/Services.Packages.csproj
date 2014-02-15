@@ -240,6 +240,8 @@
     <Compile Include="Update\CheckPackagesForUpdate.cs" />
     <Compile Include="Update\CheckPackagesForUpdateData.cs" />
     <Compile Include="Update\CheckPackagesForUpdateReturnData.cs" />
+    <Compile Include="Update\PromotePackageToAnotherServerData.cs" />
+    <Compile Include="Update\PromotePackageToAnotherServer.cs" />
     <Compile Include="Update\UploadPackageData.cs" />
     <Compile Include="Update\DownloadPackageData.cs" />
     <Compile Include="Update\DownloadPackage.cs" />
