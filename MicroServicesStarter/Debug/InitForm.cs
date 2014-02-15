@@ -2,13 +2,12 @@
 {
     using System;
     using System.ComponentModel;
-    using System.IO;
+    using System.Diagnostics;
+    using System.Threading;
     using System.Windows.Forms;
-    using Chains.Play;
     using MicroServicesStarter.Deploy;
     using MicroServicesStarter.ServiceManagement;
     using MicroServicesStarter.ServiceManagement.Action;
-    using Services.Management.Administration.Worker;
 
     public partial class InitForm : Form
     {
@@ -63,6 +62,9 @@
             switch (setupType)
             {
                 case SetupType.Debug:
+                    debugCheckerBackgroundWorker.RunWorkerAsync();
+                    setupLocalEnvironmentBackgroundWorker.RunWorkerAsync();
+                    break;
                 case SetupType.Release:
                     setupLocalEnvironmentBackgroundWorker.RunWorkerAsync();
                     break;
@@ -79,26 +81,29 @@
 
         private void integrationTestBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var jsonFileWithAdminJson = string.Format("admin-{0}.json", setupType.ToString());
             var jsonFileWithStartingServices = string.Format("services-{0}.json", setupType.ToString());
 
-            var adminStartData = Json<StartWorkerData>.Deserialize(File.ReadAllText(jsonFileWithAdminJson));
-
-            adminSetupContext.LogToUi(string.Format("Installing assemblies on server tcp://{0}:{1}...", adminStartData.AdminHost, adminStartData.AdminPort))
-                             .Do(new InstallProjects(adminStartData.AdminHost, adminStartData.AdminPort))
-                             .LogToUi("Starting services on remote server...")
-                             .Do(new StartServices(jsonFileWithStartingServices, adminStartData.AdminHost, adminStartData.AdminPort))
-                             .LogToUi(string.Format("Deployed to tcp://{0}:{1}", adminStartData.AdminHost, adminStartData.AdminPort));
+            adminSetupContext.LogToUi(string.Format("Installing assemblies on their respective servers..."))
+                             .Do(new GatherProjectInfo())
+                             .Do(new InstallAndStartServicesForIntegrationTest(jsonFileWithStartingServices))
+                             .LogToUi("All services deployed and starting.");
 
             hasInitialized = true;
+            DoNotLetFormToBeAnnoying();
+
+            Thread.Sleep(6000);
+
+            CloseDialog();
         }
 
         private void setupLocalEnvironmentBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            adminSetupContext.LogToUi("Starting admin process...")
+            adminSetupContext.LogToUi("Checking projects...")
+                             .Do(new GatherProjectInfo())
+                             .LogToUi("Moving necessary files...")
+                             .Do(new PrepareFiles())
+                             .LogToUi("Starting admin process...")
                              .Do(new StartAdmin())
-                             .LogToUi("Checking projects...")
-                             .Do(new CheckProjectsToPublish())
                              .LogToUi("Installing assemblies...")
                              .Do(new InstallProjects())
                              .LogToUi("Starting services...")
@@ -106,6 +111,45 @@
                              .LogToUi("Environment is ready. Close this form to shutdown.");
 
             hasInitialized = true;
+            DoNotLetFormToBeAnnoying();
+        }
+
+        private void debugCheckerBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                if (hasInitialized && !Debugger.IsAttached)
+                {
+                    CloseDialog();
+                    break;
+                }
+
+                Thread.Sleep(100);
+            }
+        }
+
+        private void CloseDialog()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(CloseDialog));
+
+                return;
+            }
+
+            Close();
+        }
+
+        private void DoNotLetFormToBeAnnoying()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(DoNotLetFormToBeAnnoying));
+
+                return;
+            }
+
+            this.TopMost = false;
         }
     }
 }

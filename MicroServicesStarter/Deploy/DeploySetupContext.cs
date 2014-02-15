@@ -28,7 +28,6 @@
             : base(adminSetupContext)
         {
             var versionFile = string.Format("{0}version.txt", adminSetupContext.SolutionDirectory);
-            var xmlOptionsFile = string.Format("{0}options.xml", adminSetupContext.SolutionDirectory);
 
             if (!File.Exists(versionFile))
             {
@@ -40,13 +39,8 @@
             NugetFolder = string.Format(@"{0}Nuget\", Parent.SolutionDirectory);
             UpdateFolder = string.Format(@"{0}Update\", Parent.SolutionDirectory);
 
-            if (!File.Exists(xmlOptionsFile))
-            {
-                File.WriteAllText(xmlOptionsFile, "<?xml version=\"1.0\" encoding=\"utf-8\" ?><options><nuget api-key=\"\" server=\"https://www.nuget.org/\" /><update host=\"\" port=\"\" api-key=\"\" /></options>");
-            }
-
             var optionsXmlDocument = new XmlDocument();
-            optionsXmlDocument.Load(xmlOptionsFile);
+            optionsXmlDocument.Load(adminSetupContext.SolutionDirectory + "options.xml");
 
             var nugetNode = optionsXmlDocument.SelectSingleNode("/options/nuget");
             if (nugetNode != null)

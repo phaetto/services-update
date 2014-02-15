@@ -1,18 +1,15 @@
 ﻿namespace MicroServicesStarter.ServiceManagement.Action
 {
-    using System;
     using System.IO;
-    using System.Linq;
-    using System.Reflection;
     using Chains;
 
-    public sealed class CheckProjectsToPublish : IChainableAction<AdminSetupContext, AdminSetupContext>
+    public sealed class GatherProjectInfo : IChainableAction<AdminSetupContext, AdminSetupContext>
     {
         public AdminSetupContext Act(AdminSetupContext context)
         {
             var projectDirectories = Directory.GetDirectories(context.SolutionDirectory);
 
-            var binDirectory = context.SetupType.ToString();
+            var binDirectory = context.SetupType != SetupType.IntegrationTest ? context.SetupType.ToString() : "Integration Test";
             context.Projects.Clear();
 
             foreach (var projectDirectory in projectDirectories)

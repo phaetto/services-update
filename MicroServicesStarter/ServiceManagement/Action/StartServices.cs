@@ -1,6 +1,7 @@
 ﻿namespace MicroServicesStarter.ServiceManagement.Action
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -38,6 +39,8 @@
 
             var servicesToStart = Json<StartWorkerData[]>.Deserialize(File.ReadAllText(jsonFileWithStartingServices));
 
+            var successfulServices = new Dictionary<string, bool>();
+
             MessageFilter.Register();
             
             using (
@@ -65,10 +68,11 @@
                             context.LogToUi(
                                 string.Format("Attaching to service {0}:{1}", workerData.ServiceName, workerData.Id));
 
-                            var vsProcess = VisualStudioAttacher.GetVisualStudioForSolution(context.SolutionDirectory);
                             var serviceProcess = Process.GetProcessesByName("Services.Executioner").OrderByDescending(x => x.StartTime).First();
-                            VisualStudioAttacher.AttachVisualStudioToProcess(vsProcess, serviceProcess);
+                            context.Do(new AttachDebuggerToProcess(serviceProcess));
                         }
+
+                        successfulServices.Add(workerData.Id, true);
                     }
                     catch (Exception exception)
                     {
@@ -81,10 +85,14 @@
                 {
                     try
                     {
-                        context.LogToUi(
-                            string.Format("Waiting service {0}:{1} to warm up", workerData.ServiceName, workerData.Id));
+                        if (successfulServices.ContainsKey(workerData.Id))
+                        {
+                            context.LogToUi(
+                                string.Format(
+                                    "Waiting service {0}:{1} to warm up", workerData.ServiceName, workerData.Id));
 
-                        adminConnection.Do(new WaitUntilServiceIsUp(workerData.Id));
+                            adminConnection.Do(new WaitUntilServiceIsUp(workerData.Id));
+                        }
                     }
                     catch (Exception exception)
                     {

@@ -5,8 +5,8 @@
 		"DllPath":"Services.Packages.dll",
 		"ContextType":"Services.Packages.Repository",
 		"Parameters": [ null ],
-		ContextHost: "0.0.0.0",
-		ContextPort: 13001,
+		ContextServerHost: "0.0.0.0",
+		ContextServerPort: 13001,
 	},
 
 	{
@@ -21,7 +21,31 @@
 				ModuleParameters: [ "1234", false ],
 			}
 		],
-		ContextHost: "0.0.0.0",
-		ContextPort: 13002,
-	}
+		ContextServerHost: "0.0.0.0",
+		ContextServerPort: 13002,
+	},
+
+	{
+		'Id':'Admin-Updater-Debug',
+		'ServiceName':'Services.Packages',
+		'DllPath':'Services.Packages.dll',
+		'ContextType':'Services.Packages.Admin.WatchForAdminUpdate',
+		'Parameters':['localhost', 13001, 60],
+	},
+
+	{
+		'Id':'Update-Updater-Debug',
+		'ServiceName':'Services.Packages',
+		'DllPath':'Services.Packages.dll',
+		'ContextType':'Services.Packages.Admin.WatchPackagesForUpdateWithoutVersionUpdate',
+		'Parameters':['localhost', 13001, 'Services.Update', 'Services.Packages', 60],
+	},
+
+	{
+		'Id':'Create-Random-Packages',
+		'ServiceName':'Services.Packages.Debug',
+		'DllPath':'Services.Packages.Debug.dll',
+		'ContextType':'Services.Packages.Debug.CreateRandomAdminPackageAndUpdatePackage',
+		'Parameters':['localhost', 13001, 'update.msd.am', 12345],
+	},
 ]
