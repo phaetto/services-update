@@ -9,7 +9,7 @@
 		ContextServerPort: 13001,
 	},
 
-	{
+	/*{
 		"Id":"Update-Server-Secure-Debug",
 		"ServiceName":"Services.Packages",
 		"DllPath":"Services.Packages.dll",
@@ -23,7 +23,7 @@
 		],
 		ContextServerHost: "0.0.0.0",
 		ContextServerPort: 13002,
-	},
+	},*/
 
 	{
 		'Id':'Admin-Updater-Debug',
