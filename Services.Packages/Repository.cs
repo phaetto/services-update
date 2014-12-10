@@ -8,8 +8,10 @@
     using Chains.Play.Modules;
     using Platform.Runtime;
     using Platform.Runtime.Extensions.Xml;
+    using Services.Management.Administration.Server;
     using Services.Management.Administration.Worker;
     using Services.Packages.Update;
+    using Services.Communication.Protocol;
 
     public sealed class Repository : Chain<Repository>, IModular
     {
@@ -27,7 +29,11 @@
 
             if (string.IsNullOrWhiteSpace(baseFolder))
             {
-                baseFolder = AppDomain.CurrentDomain.BaseDirectory;
+                var adminData = workUnitContext.AdminServer.Do(new GetAdministratorData());
+
+                baseFolder = adminData.DataFolder + "XmlDatabases" + Path.DirectorySeparatorChar
+                    + workUnitContext.WorkerData.ServiceName + Path.DirectorySeparatorChar
+                    + workUnitContext.WorkerData.Version + Path.DirectorySeparatorChar;
             }
 
             if (string.IsNullOrWhiteSpace(XmlConnection.SchemaPath))
