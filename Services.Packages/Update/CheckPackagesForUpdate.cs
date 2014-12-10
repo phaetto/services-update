@@ -13,7 +13,7 @@
         {
         }
 
-        protected override CheckPackagesForUpdateReturnData ActRemotely(Repository context)
+        public override CheckPackagesForUpdateReturnData Act(Repository context)
         {
             var returnData = new CheckPackagesForUpdateReturnData();
 

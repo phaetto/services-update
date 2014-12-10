@@ -13,7 +13,7 @@
         {
         }
 
-        protected override DownloadPackageReturnData ActRemotely(Repository context)
+        public override DownloadPackageReturnData Act(Repository context)
         {
             var packageInDb = new Package(Data.PackageRequested.Id);
 
