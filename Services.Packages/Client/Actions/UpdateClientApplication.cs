@@ -1,7 +1,8 @@
 ﻿namespace Services.Packages.Client.Actions
 {
+    using System.Collections.Concurrent;
     using System.IO;
-    using System.Linq;
+    using System.Threading.Tasks;
     using Chains;
     using Chains.Play;
     using Chains.Play.Security;
@@ -54,19 +55,19 @@
 
                 if (packagesToUpdate.Packages.Count > 0)
                 {
-                    var downloadedPackages =
-                        updateServerConnection.DoParallelFor(
-                            packagesToUpdate.Packages.Select(
-                                x => new Send<DownloadPackageReturnData>(
-                                    new DownloadPackage(
-                                        new DownloadPackageData
-                                        {
-                                            PackageRequested = x
-                                        })
-                                    {
-                                        ApiKey = ApiKey
-                                    })).ToArray<IChainableAction<ClientConnectionContext, DownloadPackageReturnData>>())
-                        .ToArray();
+                    var downloadedPackages = new ConcurrentBag<DownloadPackageReturnData>();
+                    Parallel.ForEach(packagesToUpdate.Packages,
+                        x =>
+                        {
+                            downloadedPackages.Add(updateServerConnection.Do(new DownloadPackage(
+                                new DownloadPackageData
+                                {
+                                    PackageRequested = x
+                                })
+                            {
+                                ApiKey = ApiKey
+                            }));
+                        });
 
                     Directory.CreateDirectory(updateDirectory);
 

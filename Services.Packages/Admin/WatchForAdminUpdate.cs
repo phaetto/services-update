@@ -1,10 +1,11 @@
 ﻿namespace Services.Packages.Admin
 {
     using System;
+    using System.Collections.Concurrent;
     using System.IO;
-    using System.Linq;
     using System.Net.Sockets;
     using System.Threading;
+    using System.Threading.Tasks;
     using Chains;
     using Chains.Play.Web;
     using Ionic.Zip;
@@ -20,7 +21,7 @@
     {
         public const string ServicesExecutionerPackageName = "Services.Executioner";
 
-        public readonly Thread checkThread = null;
+        public readonly Thread CheckThread = null;
 
         private readonly string hostname;
 
@@ -38,7 +39,7 @@
             this.port = port;
             this.secondsChecking = secondsChecking;
             this.workUnitContext = workUnitContext;
-            checkThread = new Thread(CheckFileSystemThread);
+            CheckThread = new Thread(CheckFileSystemThread);
         }
 
         private void CheckFileSystemThread()
@@ -97,22 +98,19 @@
                             // Start download process
                             workUnitContext.LogLine("Downloading packages...");
 
-                            var downloadedPackages =
-                                updateServerConnection.DoParallelFor(
-                                    packagesToUpdate.Packages.Select(
-                                        x =>
-                                            new Send<DownloadPackageReturnData>(
-                                                new DownloadPackage(
-                                                    new DownloadPackageData
-                                                    {
-                                                        PackageRequested = x
-                                                    })
-                                                {
-                                                    ApiKey = workUnitContext.ApiKey
-                                                }))
-                                                .ToArray<IChainableAction<ClientConnectionContext, DownloadPackageReturnData>>())
-                                                .ToArray();
-
+                            var downloadedPackages = new ConcurrentBag<DownloadPackageReturnData>();
+                            Parallel.ForEach(packagesToUpdate.Packages,
+                                x =>
+                                {
+                                    downloadedPackages.Add(updateServerConnection.Do(new DownloadPackage(
+                                        new DownloadPackageData
+                                        {
+                                            PackageRequested = x
+                                        })
+                                    {
+                                        ApiKey = workUnitContext.ApiKey
+                                    }));
+                                });
 
                             workUnitContext.LogLine("Unzipping packages...");
 
@@ -206,7 +204,7 @@
 
             try
             {
-                checkThread.Abort();
+                CheckThread.Abort();
             }
             catch
             {
@@ -219,12 +217,12 @@
                 new Client(workUnitContext.WorkerData.AdminHost, workUnitContext.WorkerData.AdminPort).Do(
                     new OpenConnection());
 
-            checkThread.Start();
+            CheckThread.Start();
         }
 
         public void OnStop()
         {
-            checkThread.Abort();
+            CheckThread.Abort();
         }
     }
 }

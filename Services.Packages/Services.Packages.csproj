@@ -56,12 +56,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chains, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Chains.0.10.0.0\lib\Chains.dll</HintPath>
+      <HintPath>..\packages\Chains.0.10.1.1\lib\Chains.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Services.Management.0.10.0.0\lib\Ionic.Zip.dll</HintPath>
+      <HintPath>..\packages\Services.Management.0.10.1.1\lib\Ionic.Zip.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,24 +71,24 @@
       <HintPath>..\..\..\PlatformCreator\Platform.Runtime\bin\Debug\Platform.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Services.Communication, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Services.Communication.0.10.0.0\lib\Services.Communication.dll</HintPath>
+      <HintPath>..\packages\Services.Communication.0.10.1.1\lib\Services.Communication.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Services.Management, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Services.Management.0.10.0.0\lib\Services.Management.dll</HintPath>
+      <HintPath>..\packages\Services.Management.0.10.1.1\lib\Services.Management.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.3.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Services.Management.0.10.0.0\lib\SuperSocket.Common.dll</HintPath>
+      <HintPath>..\packages\Services.Management.0.10.1.1\lib\SuperSocket.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SuperSocket.SocketBase, Version=1.6.3.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Services.Management.0.10.0.0\lib\SuperSocket.SocketBase.dll</HintPath>
+      <HintPath>..\packages\Services.Management.0.10.1.1\lib\SuperSocket.SocketBase.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SuperSocket.SocketEngine, Version=1.6.3.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Services.Management.0.10.0.0\lib\SuperSocket.SocketEngine.dll</HintPath>
+      <HintPath>..\packages\Services.Management.0.10.1.1\lib\SuperSocket.SocketEngine.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -109,136 +109,50 @@
     <Compile Include="Client\Update.cs" />
     <Compile Include="Client\Actions\UpdateClientApplication.cs" />
     <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedo.cs" />
-    <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedoGroup.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedoOptions.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.ApiKey.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedoGroup.cs" />
+    <Compile Include="DAL\Platform.Module.UndoRedo.Services.Packages.UndoRedoOptions.cs" />
+    <Compile Include="DAL\Services.Packages.ApiKey.cs" />
     <Compile Include="DAL\Services.Packages.cs" />
-    <Compile Include="DAL\Services.Packages.Customer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.CustomerUndoRedo.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.CustomerUserEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.LocalPackage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Log.ApplicationException.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionSecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Package.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Purchase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.PurchaseLine.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.PurchaseLineUndoRedo.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.PurchaseUndoRedo.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.ApiKeyAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.ApiKeyAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.ApiKeySecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.CustomerAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.CustomerAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.CustomerSecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntryAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntryAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntrySecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.IPRegistered.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.IPSessionRegistration.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.ModelSession.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.ModelUser.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.ModelUserRights.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PackageAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PackageAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PackageSecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PurchaseAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PurchaseAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PurchaseLineAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PurchaseLineAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PurchaseLineSecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.PurchaseSecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.Securable.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserAccessControlEntry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserAccessControlList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserSecureService.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="DAL\Services.Packages.Customer.cs" />
+    <Compile Include="DAL\Services.Packages.CustomerUndoRedo.cs" />
+    <Compile Include="DAL\Services.Packages.CustomerUserEntry.cs" />
+    <Compile Include="DAL\Services.Packages.LocalPackage.cs" />
+    <Compile Include="DAL\Services.Packages.Log.ApplicationException.cs" />
+    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Log.Security.ApplicationExceptionSecureService.cs" />
+    <Compile Include="DAL\Services.Packages.Package.cs" />
+    <Compile Include="DAL\Services.Packages.Purchase.cs" />
+    <Compile Include="DAL\Services.Packages.PurchaseLine.cs" />
+    <Compile Include="DAL\Services.Packages.PurchaseLineUndoRedo.cs" />
+    <Compile Include="DAL\Services.Packages.PurchaseUndoRedo.cs" />
+    <Compile Include="DAL\Services.Packages.Security.ApiKeyAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Security.ApiKeyAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Security.ApiKeySecureService.cs" />
+    <Compile Include="DAL\Services.Packages.Security.CustomerAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Security.CustomerAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Security.CustomerSecureService.cs" />
+    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntryAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntryAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Security.CustomerUserEntrySecureService.cs" />
+    <Compile Include="DAL\Services.Packages.Security.IPRegistered.cs" />
+    <Compile Include="DAL\Services.Packages.Security.IPSessionRegistration.cs" />
+    <Compile Include="DAL\Services.Packages.Security.ModelSession.cs" />
+    <Compile Include="DAL\Services.Packages.Security.ModelUser.cs" />
+    <Compile Include="DAL\Services.Packages.Security.ModelUserRights.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PackageAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PackageAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PackageSecureService.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PurchaseAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PurchaseAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PurchaseLineAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PurchaseLineAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PurchaseLineSecureService.cs" />
+    <Compile Include="DAL\Services.Packages.Security.PurchaseSecureService.cs" />
+    <Compile Include="DAL\Services.Packages.Security.Securable.cs" />
+    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserAccessControlEntry.cs" />
+    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserAccessControlList.cs" />
+    <Compile Include="DAL\Services.Packages.Security.Security.ModelUserSecureService.cs" />
     <Compile Include="Modules\ApiKeyAuthorizationProvider.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,7 +172,6 @@
     <Folder Include="Forms\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Services.Packages.nuspec">
       <SubType>Designer</SubType>
     </None>

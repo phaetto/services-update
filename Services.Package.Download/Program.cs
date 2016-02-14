@@ -1,9 +1,9 @@
 ﻿namespace Services.Package.Download
 {
     using System;
+    using System.Collections.Concurrent;
     using System.IO;
-    using System.Linq;
-    using Chains;
+    using System.Threading.Tasks;
     using Chains.Play;
     using Chains.Play.Web;
     using Ionic.Zip;
@@ -14,8 +14,6 @@
 
     class Program
     {
-        private const string ArchiveFilename = "package-temp.zip";
-
         static void Main(string[] args)
         {
             if (args.Length > 0 && (args[0] == "--update" || args[0] == Update.UpdatePackagesArgument))
@@ -47,7 +45,7 @@
                                                };
 
                 Console.WriteLine("One argument is allowed of type JSON like:");
-                Console.WriteLine(string.Format("Services.Package.Download \"{0}\"", examplePackageUploadData.SerializeToJsonForCommandPrompt()));
+                Console.WriteLine("Services.Package.Download \"{0}\"", examplePackageUploadData.SerializeToJsonForCommandPrompt());
                 return;
             }
 
@@ -94,19 +92,19 @@
                 {
                     Console.WriteLine("Found {0} updates!", packagesToUpdate.Packages.Count);
 
-                    var downloadedPackages =
-                        updateServerConnection.DoParallelFor(
-                            packagesToUpdate.Packages.Select(
-                                x => new Send<DownloadPackageReturnData>(
-                                    new DownloadPackage(
-                                        new DownloadPackageData
-                                        {
-                                            PackageRequested = x
-                                        })
-                                    {
-                                        ApiKey = packageDownloadData.YourApiKey
-                                    })).ToArray<IChainableAction<ClientConnectionContext, DownloadPackageReturnData>>())
-                        .ToArray();
+                    var downloadedPackages = new ConcurrentBag<DownloadPackageReturnData>();
+                    Parallel.ForEach(packagesToUpdate.Packages,
+                        x =>
+                        {
+                            downloadedPackages.Add(updateServerConnection.Do(new DownloadPackage(
+                                new DownloadPackageData
+                                {
+                                    PackageRequested = x
+                                })
+                            {
+                                ApiKey = packageDownloadData.YourApiKey
+                            }));
+                        });
 
                     Console.WriteLine("Zip files downloaded...");
 

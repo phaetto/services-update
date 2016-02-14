@@ -1,10 +1,12 @@
 ﻿namespace Services.Packages.Admin
 {
     using System;
+    using System.Collections.Concurrent;
     using System.IO;
     using System.Linq;
     using System.Net.Sockets;
     using System.Threading;
+    using System.Threading.Tasks;
     using Chains;
     using Chains.Play.Web;
     using Ionic.Zip;
@@ -104,21 +106,19 @@
                             // Start download process
                             workUnitContext.LogLine("Downloading packages...");
 
-                            var downloadedPackages =
-                                updateServerConnection.DoParallelFor(
-                                    packagesToUpdate.Packages.Select(
-                                        x =>
-                                            new Send<DownloadPackageReturnData>(
-                                                new DownloadPackage(
-                                                    new DownloadPackageData
-                                                    {
-                                                        PackageRequested = x
-                                                    })
-                                                {
-                                                    ApiKey = workUnitContext.ApiKey
-                                                }))
-                                                .ToArray<IChainableAction<ClientConnectionContext, DownloadPackageReturnData>>())
-                                                .ToArray();
+                            var downloadedPackages = new ConcurrentBag<DownloadPackageReturnData>();
+                            Parallel.ForEach(packagesToUpdate.Packages,
+                                x =>
+                                {
+                                    downloadedPackages.Add(updateServerConnection.Do(new DownloadPackage(
+                                        new DownloadPackageData
+                                        {
+                                            PackageRequested = x
+                                        })
+                                    {
+                                        ApiKey = workUnitContext.ApiKey
+                                    }));
+                                });
 
 
                             workUnitContext.LogLine("Unzipping packages...");
@@ -138,21 +138,20 @@
 
                             workUnitContext.LogLine("Copying zip packages to services' repos from '{0}' (no version update)...", tempDir);
 
-                            adminServer.DoParallelFor(
-                                services.Select(
-                                    x => new Send(
-                                        new ApplyServiceUpdateOnLastVersion(
-                                            new UpdateWorkUnitData
-                                            {
-                                                ServiceName = x,
-                                                UpdateFolderOrFile = tempDir,
-                                            })
+                            Parallel.ForEach(services,
+                                x =>
+                                {
+                                    adminServer.Do(new ApplyServiceUpdateOnLastVersion(
+                                        new UpdateWorkUnitData
                                         {
-                                            ApiKey = workUnitContext.ApiKey,
-                                            Session = workUnitContext.Session,
-                                        }))
-                                        .ToArray<IChainableAction<ClientConnectionContext, ClientConnectionContext>>())
-                                       .ToArray();
+                                            ServiceName = x,
+                                            UpdateFolderOrFile = tempDir,
+                                        })
+                                    {
+                                        ApiKey = workUnitContext.ApiKey,
+                                        Session = workUnitContext.Session,
+                                    });
+                                });
 
                             Directory.Delete(tempDir, true);
 
