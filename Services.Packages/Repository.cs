@@ -32,8 +32,12 @@
                 var adminData = workUnitContext.AdminServer.Do(new GetAdministratorData());
 
                 baseFolder = adminData.DataFolder + "XmlDatabases" + Path.DirectorySeparatorChar
-                    + workUnitContext.WorkerData.ServiceName + Path.DirectorySeparatorChar
-                    + workUnitContext.WorkerData.Version + Path.DirectorySeparatorChar;
+                    + workUnitContext.WorkerData.Id + Path.DirectorySeparatorChar;
+
+                if (!Directory.Exists(baseFolder))
+                {
+                    Directory.CreateDirectory(baseFolder);
+                }
             }
 
             if (string.IsNullOrWhiteSpace(XmlConnection.SchemaPath))
