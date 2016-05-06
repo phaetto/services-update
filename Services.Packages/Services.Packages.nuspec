@@ -24,7 +24,6 @@
     <dependencies>
       <dependency id="Chains" version="0.9.0.6" />
       <dependency id="Services.Management" version="0.9.0.6" />
-      <dependency id="log4net" version="2.0.0" />
       <dependency id="Newtonsoft.Json" version="4.5.11" />
     </dependencies>
   </metadata>
